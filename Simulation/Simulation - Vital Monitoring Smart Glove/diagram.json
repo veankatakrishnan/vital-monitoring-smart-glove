@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "author": "Veankata Krishnan",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": -4.76, "attrs": {} },
+    { "type": "board-ds18b20", "id": "temp1", "top": -106.73, "left": 205.68, "attrs": {} },
+    { "type": "wokwi-mpu6050", "id": "imu1", "top": 128.62, "left": 203.92, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": 3.14,
+      "left": -153.37,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 4.8,
+      "left": 162.65,
+      "rotate": 90,
+      "attrs": { "value": "4700" }
+    },
+    { "type": "chip-neo-6m-gps", "id": "chip1", "top": 241.02, "left": 129.6, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": 27.5, "left": -288.2, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot2", "top": 190.7, "left": -240.2, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 179,
+      "left": -134.4,
+      "attrs": { "color": "green", "xray": "", "bounce": "1" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text1",
+      "top": 0,
+      "left": -278.4,
+      "attrs": { "text": "SpO2 \n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text2",
+      "top": 163.2,
+      "left": -278.4,
+      "attrs": { "text": "Heart Rate" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text3",
+      "top": -134.4,
+      "left": 182.4,
+      "attrs": { "text": "Temperature\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text4",
+      "top": 192,
+      "left": 144,
+      "attrs": { "text": "Accelerometer & Gyroscope\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text5",
+      "top": 307.2,
+      "left": 105.6,
+      "attrs": { "text": "GPS Custom Chip" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text6",
+      "top": 220.8,
+      "left": -115.2,
+      "attrs": { "text": "SOS " }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text7",
+      "top": 86.4,
+      "left": -115.2,
+      "attrs": { "text": "OLED" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "oled1:SDA", "esp:21", "blue", [ "v-38.4", "h220.87", "v105.6" ] ],
+    [ "oled1:SCL", "esp:22", "blue", [ "v-28.8", "h221.1", "v67.2" ] ],
+    [ "esp:3V3", "oled1:VCC", "red", [ "h-4.61", "v-38.4", "h-105.6" ] ],
+    [ "oled1:GND", "esp:GND.1", "black", [ "v-19.2", "h-48", "v163.2" ] ],
+    [ "temp1:DQ", "r1:1", "green", [ "v0" ] ],
+    [ "esp:GND.3", "temp1:GND", "black", [ "h81.64" ] ],
+    [ "temp1:VCC", "esp:3V3", "red", [ "v9.6", "h-240", "v-9.6" ] ],
+    [ "esp:3V3", "r1:2", "green", [ "h-23.81", "v-96", "h182.4", "v124.8", "h28.8" ] ],
+    [ "imu1:VCC", "esp:3V3", "red", [ "v172.8", "h-316.72", "v-278.4" ] ],
+    [ "imu1:GND", "esp:GND.3", "black", [ "v0" ] ],
+    [ "imu1:SDA", "esp:21", "orange", [ "v0" ] ],
+    [ "imu1:SCL", "esp:22", "gold", [ "v0" ] ],
+    [ "r1:1", "esp:4", "green", [ "h-48", "v163.2" ] ],
+    [ "esp:3V3", "chip1:VCC", "red", [ "h-19.05", "v192" ] ],
+    [ "esp:GND.1", "chip1:GND", "black", [ "h-28.65", "v105.6" ] ],
+    [ "esp:16", "chip1:TX", "gold", [ "h28.8", "v153.6", "h144", "v38.4" ] ],
+    [ "esp:17", "chip1:RX", "blue", [ "h19.2", "v153.6", "h144", "v38.4" ] ],
+    [ "esp:3V3", "pot2:VCC", "red", [ "h-28.65", "v105.6", "h-144", "v48", "h-38.4" ] ],
+    [ "pot1:VCC", "esp:3V3", "red", [ "v9.6", "h47.2", "v-172.8", "h48", "v-57.6", "h9.6" ] ],
+    [ "pot2:GND", "esp:GND.3", "black", [ "v57.6", "h316.8", "v-19.2", "h76.8", "v-211.2" ] ],
+    [ "pot1:GND", "esp:GND.3", "black", [ "v48", "h220.8", "v-76.8", "h48", "v-134.4", "h86.4" ] ],
+    [
+      "pot2:SIG",
+      "esp:34",
+      "blue",
+      [ "v19.2", "h57.2", "v-28.8", "h134.4", "v-57.6", "h9.6", "v-124.8" ]
+    ],
+    [ "pot1:SIG", "esp:35", "green", [ "v19.2", "h76.4", "v-192" ] ],
+    [ "esp:13", "button:1", "green", [] ],
+    [ "button:2", "esp:GND.1", "black", [] ],
+    [ "btn1:1.l", "esp:13", "green", [ "h-9.6", "v-19.2" ] ],
+    [ "esp:GND.1", "btn1:2.r", "black", [ "h-47.85", "v57.6" ] ]
+  ],
+  "dependencies": {}
+}

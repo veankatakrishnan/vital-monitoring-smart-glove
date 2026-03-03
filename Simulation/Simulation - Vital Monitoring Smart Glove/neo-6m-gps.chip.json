@@ -1,0 +1,12 @@
+{
+  "name": "neo-6m-gps",
+  "author": "Veankata Krishnan",
+  "version": "1.0.0",
+  "pins": [
+    "VCC",
+    "GND",
+    "RX",
+    "TX"
+  ],
+  "controls": []
+}
